@@ -1,6 +1,5 @@
 package com.example.mahmayar.virtualshelfbrowser;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -82,7 +80,7 @@ public class BookDetailsFragment extends Fragment {
             Book book = data.getParcelable("book");
             URL url = null;
             try {
-                url = new URL(book.getImage_url());
+                url = new URL(book.getImageUrl());
                 Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 ImageView imageView = (ImageView) rootView.findViewById(R.id.book_thumbnail);
                 imageView.setImageBitmap(bmp);

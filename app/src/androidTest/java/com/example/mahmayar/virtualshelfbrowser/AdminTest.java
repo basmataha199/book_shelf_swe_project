@@ -1,15 +1,12 @@
 package com.example.mahmayar.virtualshelfbrowser;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.InstrumentationTestCase;
-import android.test.mock.MockContext;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,15 +19,18 @@ import java.util.Map;
 @LargeTest
 public class AdminTest extends InstrumentationTestCase {
     private AdminModel adminModel;
+    private DbConnection dbConnection;
+
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
 
 
     @Before
     public void setUp(){
-        dbHelper = new DatabaseHelper(InstrumentationRegistry.getTargetContext(), "TestDB");
-        db = dbHelper.getWritableDatabase();
-        adminModel = new AdminModel(db);
+
+        dbConnection = DbConnection.getInstace(InstrumentationRegistry.getTargetContext());
+        db = dbConnection.getConnection();
+        adminModel = new AdminModel(dbConnection);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class AdminTest extends InstrumentationTestCase {
         book.setPrice(80);
         book.setCategory("drama");
         book.setAuthor("rewan");
-        book.setImage_url("http:url");
+        book.setImageUrl("http:url");
         book.setDescription("good");
         book.setReleaseDate("2018-02-09");
         b.add(book);
@@ -63,7 +63,7 @@ public class AdminTest extends InstrumentationTestCase {
         book.setPrice(80);
         book.setCategory("drama");
         book.setAuthor("rewan");
-        book.setImage_url("http:url");
+        book.setImageUrl("http:url");
         book.setDescription("good");
         book.setReleaseDate("2018-02-09");
         b.add(book);
@@ -89,7 +89,7 @@ public class AdminTest extends InstrumentationTestCase {
         book.setPrice(80);
         book.setCategory("drama");
         book.setAuthor("rewan");
-        book.setImage_url("http:url");
+        book.setImageUrl("http:url");
         book.setDescription("good");
         book.setReleaseDate("2018-02-09");
         b.add(book);
@@ -117,7 +117,7 @@ public class AdminTest extends InstrumentationTestCase {
         book.setPrice(80);
         book.setCategory("drama");
         book.setAuthor("rewan");
-        book.setImage_url("http:url");
+        book.setImageUrl("http:url");
         book.setDescription("good");
         book.setReleaseDate("2018-02-09");
         b.add(book);
@@ -150,12 +150,5 @@ public class AdminTest extends InstrumentationTestCase {
 
         assertEquals(0, cursor.getCount());
     }
-
-
-
-
-
-
-
 
 }

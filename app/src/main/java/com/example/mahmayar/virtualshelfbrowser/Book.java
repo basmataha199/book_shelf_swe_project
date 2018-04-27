@@ -2,8 +2,9 @@ package com.example.mahmayar.virtualshelfbrowser;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
-public class Book implements Parcelable {
+public class Book implements Parcelable, Comparable<Book> {
     private String isbn;
     private String title;
     private float price;
@@ -11,13 +12,13 @@ public class Book implements Parcelable {
     private String description;
     private String category;
     private String author;
-    private String image_url;
+    private String imageUrl;
     private String currency = "";
 
     public Book() {}
 
     protected Book(Parcel in) {
-        image_url = in.readString();
+        imageUrl = in.readString();
         title = in.readString();
         price = (float) in.readDouble();
         isbn = in.readString();
@@ -39,12 +40,12 @@ public class Book implements Parcelable {
         }
     };
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String image_url) {
+        this.imageUrl = image_url;
     }
 
     public String getAuthor() {
@@ -118,7 +119,7 @@ public class Book implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(image_url);
+        dest.writeString(imageUrl);
         dest.writeString(title);
         dest.writeDouble(price);
         dest.writeString(isbn);
@@ -126,5 +127,20 @@ public class Book implements Parcelable {
         dest.writeString(category);
         dest.writeString(author);
         dest.writeString(description);
+    }
+
+    @Override
+    public int compareTo(@NonNull Book book) {
+        if(!title.equals(book.title)) return -1;
+        if(!category.equals(book.category)) return -1;
+        if(!currency.equals(book.currency)) return -1;
+        if(price!= book.price) return -1;
+        if(!description.equals(book.description)) return -1;
+        if(!releaseDate.equals(book.releaseDate)) return -1;
+        if(!category.equals(book.category)) return -1;
+        if(!author.equals(book.author)) return -1;
+        if(!isbn.equals(book.isbn)) return -1;
+
+        return 0;
     }
 }

@@ -50,7 +50,7 @@ private SQLiteDatabase db;
         while(cursor.moveToNext()) {
             Book book = new Book();
 
-            book.setImage_url(cursor.getString(cursor.getColumnIndex("image_url")));
+            book.setImageUrl(cursor.getString(cursor.getColumnIndex("image_url")));
             book.setAuthor(cursor.getString(cursor.getColumnIndex("author")));
             book.setISBN(cursor.getString(cursor.getColumnIndex("isbn")));
             book.setTitle(cursor.getString(cursor.getColumnIndex("title")));

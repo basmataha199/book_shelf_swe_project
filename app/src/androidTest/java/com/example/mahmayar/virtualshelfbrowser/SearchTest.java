@@ -19,23 +19,25 @@ import static junit.framework.Assert.assertEquals;
 public class SearchTest {
 
     private AdminModel adminUserFunc;
+    private DbConnection dbConnection;
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
     @Before
     public void setUp(){
-        dbHelper = new DatabaseHelper(InstrumentationRegistry.getTargetContext(), "TestDB");
-        db = dbHelper.getWritableDatabase();
-        adminUserFunc = new AdminModel(db);
+        dbConnection = DbConnection.getInstace(InstrumentationRegistry.getTargetContext());
+        db = dbConnection.getConnection();
+        adminUserFunc = new AdminModel(dbConnection);
     }
 
     @After
     public void tearDown() {
-        db.execSQL("DELETE from  book");
+        db.execSQL ( "DELETE from  book" );
     }
 
 
     @Test
     public void testSearchByCategory() {
+        db.execSQL ( "DELETE from  book" );
         ArrayList<Book> b = new ArrayList<>();
         Book book = new Book();
         book.setISBN("1");
@@ -43,7 +45,7 @@ public class SearchTest {
         book.setPrice(80);
         book.setCategory("drama");
         book.setAuthor("rewan");
-        book.setImage_url("http:url");
+        book.setImageUrl("http:url");
         book.setDescription("good");
         book.setReleaseDate("2018-02-09");
         b.add(book);
@@ -56,6 +58,7 @@ public class SearchTest {
 
     @Test
     public void testSearchSize() {
+        db.execSQL ( "DELETE from  book" );
         ArrayList<Book> b = new ArrayList<>();
         Book book1 = new Book();
         book1.setISBN("1");
@@ -63,7 +66,7 @@ public class SearchTest {
         book1.setPrice(80);
         book1.setCategory("drama");
         book1.setAuthor("rewan");
-        book1.setImage_url("http:url");
+        book1.setImageUrl("http:url");
         book1.setDescription("good");
         book1.setReleaseDate("2018-02-09");
 
@@ -73,7 +76,7 @@ public class SearchTest {
         book2.setPrice(90);
         book2.setCategory("drama");
         book2.setAuthor("rewan");
-        book2.setImage_url("http:url");
+        book2.setImageUrl("http:url");
         book2.setDescription("good");
         book2.setReleaseDate("2018-02-09");
 
@@ -90,6 +93,7 @@ public class SearchTest {
 
     @Test
     public void testWrongPriceFormat() {
+        db.execSQL ( "DELETE from  book" );
         boolean thrown = false;
         ArrayList<Book> b = new ArrayList<>();
         Book book1 = new Book();
@@ -98,7 +102,7 @@ public class SearchTest {
         book1.setPrice(80);
         book1.setCategory("drama");
         book1.setAuthor("rewan");
-        book1.setImage_url("http:url");
+        book1.setImageUrl("http:url");
         book1.setDescription("good");
         book1.setReleaseDate("2018-02-09");
         b.add(book1);
@@ -115,6 +119,7 @@ public class SearchTest {
 
     @Test
     public void testWrongAtrribute() {
+        db.execSQL ( "DELETE from  book" );
         boolean thrown = false;
         ArrayList<Book> b = new ArrayList<>();
         Book book1 = new Book();
@@ -123,11 +128,9 @@ public class SearchTest {
         book1.setPrice(80);
         book1.setCategory("drama");
         book1.setAuthor("rewan");
-        book1.setImage_url("http:url");
+        book1.setImageUrl("http:url");
         book1.setDescription("good");
         book1.setReleaseDate("2018-02-09");
-
-
         b.add(book1);
         adminUserFunc.addBook(b);
         try {
